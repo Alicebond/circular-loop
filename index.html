@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .dot {
+        text-align: center;
+      }
+    </style>
+    <title>Circular Loop</title>
+  </head>
+  <body>
+    <div class="dot">
+      <canvas id="canvas" class="canvas" width="300" height="300">
+        Your browser does not support canvas
+      </canvas>
+    </div>
+    <script type="text/javascript">
+      function init() {
+        window.requestAnimationFrame(draw);
+      }
+      function draw() {
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.translate(150, 150);
+
+        const time = new Date();
+        ctx.rotate(
+          ((2 * Math.PI) / 6) * time.getSeconds() +
+            ((2 * Math.PI) / 6000) * time.getMilliseconds()
+        );
+        ctx.beginPath();
+        ctx.arc(80, 80, 3, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.restore();
+
+        ctx.beginPath();
+        ctx.arc(150, 150, 113, 0, 2 * Math.PI); // Dot orbit
+        ctx.stroke();
+
+        window.requestAnimationFrame(draw);
+      }
+
+      init();
+    </script>
+  </body>
+</html>
